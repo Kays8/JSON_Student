@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Attendance</title>
+</head>
+<body>
+    <h1>รายชื่อการเข้าเรียน</h1>
+    <div id="attendance-list"></div>
+
+    <script>
+        // ฟังก์ชันโหลดข้อมูลจากไฟล์ JSON และแสดงบนหน้าเว็บ
+        function loadAttendanceData() {
+            fetch('student_attendance.json') // ตรงนี้ให้เปลี่ยนเส้นทางไฟล์ให้ถูกต้อง
+                .then(response => response.json())
+                .then(data => {
+                    const listContainer = document.getElementById('attendance-list');
+                    data.forEach(student => {
+                        const studentItem = document.createElement('div');
+                        studentItem.textContent = `รหัสประจำตัว: ${student['รหัสประจำตัว']}, ชื่อ: ${student['ชื่อ']}`;
+                        listContainer.appendChild(studentItem);
+                    });
+                })
+                .catch(error => console.error('Error loading the data:', error));
+        }
+
+        // เรียกใช้ฟังก์ชันเมื่อหน้าเว็บโหลดเสร็จสมบูรณ์
+        window.onload = loadAttendanceData;
+    </script>
+</body>
+</html>
